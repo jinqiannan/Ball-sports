@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>小球滚动</title>
+    <style>
+        *{margin: 0;padding: 0;}
+        #ball{
+            position: relative;
+            width: 50px;
+            height: 50px;
+            /* background: linear-gradient(#f00 10px,#FA02F7 45px); */
+            background-color: pink;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div id="ball"></div>
+    <script>
+        (function (){
+            var ball = document.getElementById('ball'),
+                screenWidth = document.documentElement.clientWidth - 50, // 记录当前可视区域的宽度
+                screenHeight = document.documentElement.clientHeight - 50,// 记录当前可视区域的高度
+                stepX = 5, // 水平方向改变的步长
+                stepY = 5, // 垂直方向改变的步长
+                nowLeft = 0, // 记录当前小球的水平定位值
+                nowTop = 0  // 记录当前小球的垂直定位值stepX)
+
+                fn()
+                function fn(){
+                    function color (){
+                        return Math.floor(Math.random()*256)
+                    }
+
+                    if(nowLeft >= screenWidth){
+                        stepX = -stepX;
+                        nowLeft = screenWidth;
+                        ball.style.backgroundColor = "rgb("+color()+","+color()+","+color()+")";
+                    }else if(nowLeft <= 0){
+                        nowLeft = 0;
+                        stepX = Math.abs(stepX)
+                        ball.style.backgroundColor = "rgb("+color()+","+color()+","+color()+")";
+                    }
+                    if(nowTop >= screenHeight){
+                        stepY = -stepY;
+                        nowTop = screenHeight;
+                        ball.style.backgroundColor = "rgb("+color()+","+color()+","+color()+")";
+                    }else if(nowTop <= 0){
+                        nowTop = 0;
+                        stepY = Math.abs(stepY)
+                        ball.style.backgroundColor = "rgb("+color()+","+color()+","+color()+")";
+                    }
+                    function color () {return Math.floor(Math.random()*256)};
+                    nowLeft += stepX;
+                    nowTop += stepY;
+                    ball.style.top = nowTop + 'px';
+                    ball.style.left = nowLeft + 'px'; 
+                    requestAnimationFrame(fn)
+                }
+
+                //更改颜色
+               
+
+                //当改变视窗大小时改变screenHeight和screenWidth的值
+                window.onresize = function(){
+                    screenWidth = document.documentElement.clientWidth - 50, // 记录当前可视区域的宽度
+                    screenHeight = document.documentElement.clientHeight - 50;// 记录当前可视区域的高度
+                }
+        })()
+    </script>
+</body>
+</html>
